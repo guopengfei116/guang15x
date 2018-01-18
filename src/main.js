@@ -7,6 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 1.2 导入和vue无关的第三方包
 import 'normalize.css'
 import axios from 'axios'
+import './less/index.less'
 
 // 2 导入自己写的模块
 // 路由实例
