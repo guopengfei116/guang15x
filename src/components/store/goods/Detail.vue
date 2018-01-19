@@ -92,6 +92,14 @@
             this.getGoods();
         },
 
+        // 监听$route对象的变化, 获取新的id, 手动调用方法更新视图
+        watch: {
+            $route() {
+                this.id = this.$route.params.id;
+                this.getGoods();
+            }
+        },
+
         components: {
             SlideList,
             DetailView,

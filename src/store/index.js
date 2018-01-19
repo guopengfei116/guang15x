@@ -4,7 +4,7 @@ export default {
     // 全局状态 => 相当于是data
     state: {
         // 购物车购买数据, 约定key就是商品ID, values就是商品的购买数据
-        shopping: { 87: 24, 88: 275 }
+        shopping: { 87: 24, 88: 275, 90: 33 }
     },
 
     // 相当于是计算属性 computed
