@@ -25,29 +25,21 @@
                             <detail-info :goods="goods.goodsinfo"></detail-info>
                         </div>
 
+                        <!-- 商品详情与评论 -->
                         <div id="goodsTabs" class="goods-tab bg-wrap">
-                            <!--选项卡-->
-                            <div id="tabHead" class="tab-head" style="position: static; top: 517px; width: 925px;">
-                                <ul>
-                                    <li>
-                                        <a class="selected" href="javascript:;">商品介绍</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="">商品评论</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!--/选项卡-->
+                            <el-tabs value="first" type="card">
+                                <el-tab-pane label="商品介绍" name="first">
+                                    <!-- 商品详情是富文本编辑器写的, 所以用v-html -->
+                                    <div v-html="goods.goodsinfo.content" class="tab-content entry" style="display:block;"></div>
+                                </el-tab-pane>
 
-                            <!--选项内容-->
-                            <div class="tab-content entry" style="display:block;">
-                                内容
-                            </div>
-
-                            <div class="tab-content" style="display: block;">
-                                <!-- 评论 -->
-                                <comment></comment>
-                            </div>
+                                <el-tab-pane label="商品评论" name="second">
+                                    <div class="tab-content" style="display: block;">
+                                        <!-- 评论需要频道与ID, ID可以通过$route.params.id拿, 但是频道必须得使用者通过属性设置了 -->
+                                        <comment tablename="goods"></comment>
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
                         </div>
                     </div>
                     <!--/页面左边-->
