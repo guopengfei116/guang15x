@@ -70,7 +70,10 @@
 </template>
 
 <script>
-    import SlideList from './common/SlideList.vue';
+    import SlideList from './common/SlideList'
+    import DetailView from './common/DetailView'
+    import DetailInfo from './common/DetailInfo'
+    import Comment from './common/Comment'
 
     export default {
         data() {
@@ -99,6 +102,9 @@
 
         components: {
             SlideList,
+            DetailView,
+            DetailInfo,
+            Comment
         }
     };
 </script>
