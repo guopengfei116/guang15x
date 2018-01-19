@@ -37,7 +37,7 @@
                 <dd>
                     <div class="btn-buy" id="buyButton">
                         <button class="buy">立即购买</button>
-                        <button class="add">加入购物车</button>
+                        <button class="add" @click="add">加入购物车</button>
                     </div>
                 </dd>
             </dl>
@@ -52,6 +52,15 @@
         data() {
             return {
                 number: 0,
+            }
+        },
+
+        methods: {
+            add() {
+                this.$store.commit('modifyShopping', {
+                    id: this.$route.params.id, 
+                    count: this.number
+                });
             }
         },
     };

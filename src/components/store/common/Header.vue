@@ -11,8 +11,11 @@
                     <a href="/login.html">登录</a>
                     <a href="/register.html">注册</a>
                     <strong>|</strong>
-                    <!--<a href="/content/contact.html"><i class="iconfont icon-phone"></i>联系我们</a>
-                       <a href="/cart.html"><i class="iconfont icon-cart"></i>购物车(<span id="shoppingCartCount"><script type="text/javascript" src="/tools/submit_ajax.ashx?action=view_cart_count"></script></span>)</a>-->
+                    <a><i class="iconfont icon-phone"></i>联系我们</a>
+                    <router-link :to="{ name: 'shopcart' }">
+                        <i class="iconfont icon-cart"></i>
+                        <span>购物车({{ $store.getters.shoppingSum }})</span>
+                    </router-link>
                 </div>
             </div>
         </div>
