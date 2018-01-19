@@ -18,7 +18,7 @@
                         <div class="goods-box clearfix">
                             <!-- 图片预览 -->
                             <div class="pic-box">
-                                <detail-view :list="goods.imglist"></detail-view>
+                                <detail-view :imglist="goods.imglist"></detail-view>
                             </div>
 
                             <!-- 商品信息 -->

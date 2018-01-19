@@ -14,29 +14,9 @@
 			<!--按钮组-->
 			<div class="magnifier-line">
 				<ul class="clearfix animation03">
-					<li>
+					<li v-for="item in imglist" :key="item.id">
 						<div class="small-img">
-							<img src="http://127.0.0.1:8899/imgs/SJ4EgwosX0wTqvyAvhtFGT1w.jpg" />
-						</div>
-					</li>
-					<li>
-						<div class="small-img">
-							<img src="http://127.0.0.1:8899/imgs/SJ4EgwosX0wTqvyAvhtFGT1w.jpg" />
-						</div>
-					</li>
-					<li>
-						<div class="small-img">
-							<img src="http://127.0.0.1:8899/imgs/SJ4EgwosX0wTqvyAvhtFGT1w.jpg" />
-						</div>
-					</li>
-					<li>
-						<div class="small-img">
-							<img src="http://127.0.0.1:8899/imgs/SJ4EgwosX0wTqvyAvhtFGT1w.jpg" />
-						</div>
-					</li>
-					<li>
-						<div class="small-img">
-							<img src="http://127.0.0.1:8899/imgs/SJ4EgwosX0wTqvyAvhtFGT1w.jpg" />
+							<img :src="item.original_path" />
 						</div>
 					</li>
 				</ul>
@@ -55,16 +35,25 @@
     import '@/lib/imgzoom/js/magnifier.js';
 
     export default {
-        mounted() {
-            var magnifierConfig = {
-                magnifier : "#magnifier1",//最外层的大容器
-                width : 500,//承载容器宽
-                height : 500,//承载容器高
-                moveWidth : null,//如果设置了移动盒子的宽度，则不计算缩放比例
-                zoom : 5//缩放比例
-            };
-            var _magnifier = $().imgzoon(magnifierConfig);
-        }
+		// 我们这个数据是由父传给子的, 这个数据在我们渲染页面时会从父到子马上传递
+		// 那么就会出现一个平常看不到的问题: 子组件先拿到初始化的空数据, 当父组件接口请求成功后子才拿到新的有效数据
+		props: ['imglist'],
+
+		// 监听imglist的变化, 变化时尝试重新初始化放大镜插件
+		watch: {
+			imglist() {
+				this.$nextTick(function () {
+					var magnifierConfig = {
+						magnifier : "#magnifier1",//最外层的大容器
+						width : 500,//承载容器宽
+						height : 500,//承载容器高
+						moveWidth : null,//如果设置了移动盒子的宽度，则不计算缩放比例
+						zoom : 5//缩放比例
+					};
+					$().imgzoon(magnifierConfig);
+				})
+			}
+		}
     }
 </script>
 
