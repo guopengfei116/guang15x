@@ -55,7 +55,7 @@
                                 <dl class="form-group">
                                     <dt>所属地区：</dt>
                                     <dd>
-                                        省市区三级联动
+                                        <v-distpicker @selected="formData.area = $event"></v-distpicker>
                                     </dd>
                                 </dl>
                                 <dl class="form-group">
@@ -202,12 +202,29 @@
 </template>
 
 <script>
+import VDistpicker from 'v-distpicker';
+
 export default {
+
+    components: {
+        VDistpicker,
+    },
+    
     data() {
         return {
+            // 快递价格表, key为快递ID, val为快递价格
+            expressPrice: {
+                1: 20,
+                2: 15,
+                3: 10
+            },
             ids: null,
             goodsList: [],
-            formData: {}
+            formData: {
+                // 设置一下支付方式与快递的默认值
+                payment_id: '6',
+                express_id: '1'
+            }
         }
     },
 
@@ -222,9 +239,9 @@ export default {
             return this.goodsList.reduce( (sum, v) => sum + v.buycount * v.sell_price, 0);
         },
 
-        // 快递费
+        // 快递费 => 用用户选择的快递id从价格表里面查
         expressMoment() {
-            return 20;
+            return this.expressPrice[this.formData.express_id];
         },
 
         // 总价
@@ -247,11 +264,23 @@ export default {
             })
         },
 
-        // 提交订单
+        // 提交订单, 后端接口需要几个额外的特殊数据, 这些需要需要我们计算并手动加上去, 他不是用户表单填写的字段
+        // goodsAmount: 商品总价
+        // expressMoment: 快递费
+        // goodsids: 商品ids
+        // cargoodsobj: 一个对象, key为商品ID, val为商品购买数量
         submit() {
+            this.formData.goodsAmount = this.goodsSum;
+            this.formData.expressMoment = this.expressMoment;
+            this.formData.goodsids = this.ids;
+            // ids字符串先通过split方法劈成数组, 然后调用reduce方法遍历得到每一个id, 
+            // 以这个id为key给一个新对象不断添加属性值, 最后就构成了一个{ id: val, id: val }这样的对象
+            this.formData.cargoodsobj = this.ids.split(',').reduce( (obj, id) => { obj[id] = 5; return obj; }, {} );
+
+            // 提交成功后跳转到支付页面, 需要把该订单的id传过去
             this.$http.post(this.$api.orderSubmit, this.formData).then(res => {
                 if(res.data.status == 0) {
-                    this.$alert('提交成功, 请支付');
+                    this.$router.push({ name: 'orderPay', params: { id: res.data.message.orderid } })
                 }
             });
         }

@@ -33,6 +33,7 @@ export default {
     // 订单数据
     orderList: ` /site/validate/order/getgoodslist/`,        // 获取订单商品列表数据, 需要参数: goodsIDS
     orderSubmit: `/site/validate/order/setorder`,            // 订单提交
+    order: `/site/validate/order/getorder/`,                  // 获取订单信息, 需要参数orderID
     orderPay: `/site/validate/order/pay/`,                   // 订单支付, 需要查询: orderID
     orderHistory: `/site/validate/order/userorderlist`,      // 获取历史订单列表, 需要查询: pageIndex 与 pageSize
     orderDetail: ` /site/validate/order/getorderdetial/`,    // 获取订单详情, 需要查询: orderID
