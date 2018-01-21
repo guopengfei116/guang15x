@@ -106,8 +106,8 @@
                     <!--购物车底部-->
                     <div class="cart-foot clearfix">
                         <div class="right-box">
-                            <button class="button">继续购物</button>
-                            <button class="submit">立即结算</button>
+                            <button class="button" @click="$router.push({ name: 'goodsList' })">继续购物</button>
+                            <button class="submit" @click="pay">立即结算</button>
                         </div>
                     </div>
 
@@ -182,6 +182,13 @@
             // 全选按钮点击函数 => 遍历商品列表, 修改每个商品为新的状态
             allChange(boolean) {
                 this.goodsList.forEach(v => v.selected = boolean);
+            },
+
+            // 立即结算按钮, 跳转到填写用户信息页面, 这个页面需要被勾选的商品ids
+            pay() {
+                // 先通过filter方法取出勾选的商品列表, 然后再通过map方法把商品列表映射为id列表, 最后通过join拼接成id字符串
+                let ids = this.goodsList.filter(v => v.selected).map(v => v.id).join(',');
+                this.$router.push({ name: 'orderCommit', params: { ids: ids } });
             }
         },
 
