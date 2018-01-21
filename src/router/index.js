@@ -8,6 +8,7 @@ import beforeEach from './beforeEach.js';
 // 导入被路由控制的组件
 // 备注: 这里的@符合就是src目录, 如果导入的是js vue json文件, 可以省略后缀名
 import Login from '@/components/login/Login'
+
 import Store from '@/components/store/Store'
 import GoodsList from '@/components/store/goods/List'
 import GoodsDetail from '@/components/store/goods/Detail'
@@ -15,6 +16,8 @@ import Shopcart from '@/components/store/shopcart/Shopcart'
 import OrderCommit from '@/components/store/order/Commit'
 import OrderPay from '@/components/store/order/Pay'
 import OrderComplete from '@/components/store/order/Complete'
+
+import Pay from '@/components/store/pay/Pay'
 
 // 启动路由插件
 Vue.use(Router)
@@ -36,11 +39,13 @@ let router = new Router({
         { name: 'orderCommit', path: 'order/commit/:ids', component: OrderCommit },
         { name: 'orderPay', path: 'order/pay/:id', component: OrderPay },
         { name: 'orderComplete', path: 'order/complete', component: OrderComplete },
+
       ]
     },
 
     // 登陆
     { name: 'login', path: '/login', component: Login },
+    { name: 'pay', path: '/pay/:id/:price', component: Pay },
   ]
 });
 router.beforeEach(beforeEach)
