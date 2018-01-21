@@ -59,7 +59,9 @@
             add() {
                 this.$store.commit('modifyShopping', {
                     id: this.$route.params.id, 
-                    count: this.number
+                    // 如果添加的是一个新的商品, 那么新商品的购物数量为undefined, 
+                    // 相加等于NaN, 为了避免这个错误, 我们做一个短路运算, 没有值就加0
+                    count: this.number + (this.$store.state.shopping[this.$route.params.id] || 0)
                 });
             }
         },
